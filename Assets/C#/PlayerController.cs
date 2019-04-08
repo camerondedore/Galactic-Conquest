@@ -12,9 +12,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Camera mainCam = null;
     [SerializeField] LayerMask planetMask = 0;
     [SerializeField] SelectLineFX lineFX = null;
-    [SerializeField] Texture2D selectCursor;
-    [SerializeField] Texture2D AttackCursor;
-    [SerializeField] Texture2D ReinforceCursor;
+    [SerializeField] Texture2D selectCursor = null;
+    [SerializeField] Texture2D AttackCursor = null;
+    [SerializeField] Texture2D ReinforceCursor = null;
 
     RaycastHit mouseHit;
     #endregion
@@ -126,6 +126,7 @@ public class PlayerController : MonoBehaviour
             // no planet found
             if (hitPlanet == null)
             {
+                TargetPlanet = null;
                 return;
             }
 
@@ -152,13 +153,16 @@ public class PlayerController : MonoBehaviour
             var hitPlanet = GetPlanetUnderMouse();
 
             // no planet found
-            if (hitPlanet == null)
+            if (hitPlanet == null || (hitPlanet != null && hitPlanet != TargetPlanet))
             {
                 TargetPlanet = null;
-                return;
+                if (hitPlanet == null)
+                {
+                    return;
+                }
             }
 
-            if (hitPlanet != attackPlanet)
+            if (hitPlanet != AttackPlanet)
             {
                 TargetPlanet = hitPlanet;
             }
@@ -173,7 +177,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonUp("Fire1"))
         {
             // no planets selected
-            if (attackPlanet == null || targetPlanet == null || attackPlanet.Faction != faction)
+            if (AttackPlanet == null || TargetPlanet == null || AttackPlanet.Faction != faction)
             {
                 // clear selected planets
                 AttackPlanet = null;
@@ -182,7 +186,7 @@ public class PlayerController : MonoBehaviour
             }
 
             // attack code here
-            attackPlanet.Attack(TargetPlanet);
+            AttackPlanet.Attack(TargetPlanet);
 
             // clear selected planets
             AttackPlanet = null;

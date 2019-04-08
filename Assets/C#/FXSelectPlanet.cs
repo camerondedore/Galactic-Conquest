@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SelectPlanetFX : MonoBehaviour
+public class FXSelectPlanet : MonoBehaviour
 {
     #region Fields
     [SerializeField] int resolution = 20;
