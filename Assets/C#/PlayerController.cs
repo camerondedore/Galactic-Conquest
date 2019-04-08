@@ -173,7 +173,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonUp("Fire1"))
         {
             // no planets selected
-            if (attackPlanet == null || targetPlanet == null)
+            if (attackPlanet == null || targetPlanet == null || attackPlanet.Faction != faction)
             {
                 // clear selected planets
                 AttackPlanet = null;
