@@ -168,7 +168,8 @@ PrefabInstance:
         type: 3}
       propertyPath: explosionFX
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1984689060835578110, guid: 60c2c13e296db0b49b5d0e81d39360ae,
+        type: 3}
     - target: {fileID: 6969520607632764289, guid: d71a88c7dd8fcdc4f8be48014bb1cf5e,
         type: 3}
       propertyPath: speed
@@ -189,17 +190,17 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -1.36
       objectReference: {fileID: 0}
+    - target: {fileID: 7572176309761714820, guid: d71a88c7dd8fcdc4f8be48014bb1cf5e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7009343839085334050, guid: d71a88c7dd8fcdc4f8be48014bb1cf5e,
         type: 3}
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1725556448474645080, guid: d71a88c7dd8fcdc4f8be48014bb1cf5e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7572176309761714820, guid: d71a88c7dd8fcdc4f8be48014bb1cf5e,
         type: 3}
       propertyPath: m_IsActive
       value: 0

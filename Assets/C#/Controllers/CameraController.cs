@@ -45,9 +45,9 @@ public class CameraController : MonoBehaviour
 
     void ZoomCamera()
     {
-        if (Input.GetAxisRaw("Mouse ScrollWheel") != 0)
+        if (Input.GetAxisRaw("Zoom") != 0)
         {
-            zoom -= Input.GetAxisRaw("Mouse ScrollWheel") * zoomSpeed * Time.deltaTime;
+            zoom -= Input.GetAxisRaw("Zoom") * zoomSpeed * Time.deltaTime;
             zoom = Mathf.Clamp(zoom, minZoom, maxZoom);
         }
 

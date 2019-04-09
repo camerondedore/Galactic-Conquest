@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SelectLineFX : MonoBehaviour
+public class FXSelectLine : MonoBehaviour
 {
     #region Fields
     LineRenderer lineRend;

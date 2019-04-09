@@ -11,7 +11,6 @@ public class Planet : MonoBehaviour, IFaction
 
     public int growthRate = 1;
 
-    [SerializeField] float growthTimer = 0;
     [SerializeField] int population = 0;
     [SerializeField] int faction = 0;
     [Space]
@@ -19,7 +18,10 @@ public class Planet : MonoBehaviour, IFaction
     [SerializeField] LineRenderer haloFX = null;
     [SerializeField] Launcher launchPad = null;
 
+    float growthTimer = 0;
+    float feedTimer = 0;
     float radius = .5f;
+    Planet feedTargetPlanet = null;
     #endregion
 
     #region Properties
@@ -95,6 +97,7 @@ public class Planet : MonoBehaviour, IFaction
     void Update()
     {
         Grow();
+        Feed();
     }
 
 
@@ -108,6 +111,26 @@ public class Planet : MonoBehaviour, IFaction
         {
             growthTimer = 0;
             Population += growthRate;
+        }
+    }
+
+
+
+    void Feed()
+    {
+        if (feedTargetPlanet == null || Population == 0)
+        {
+            return;
+        }
+
+        // feed target
+        feedTimer += Time.deltaTime;
+
+        if (feedTimer > (2f / growthRate) && faction != 0)
+        {
+            feedTimer = 0;
+            Population--;
+            launchPad.Fire(1, feedTargetPlanet);
         }
     }
 
@@ -133,6 +156,12 @@ public class Planet : MonoBehaviour, IFaction
         // add population
         Population += forceSize;
 
+        // stop feed
+        if (invadingFaction != faction)
+        {
+            feedTargetPlanet = null;
+        }
+
         // change faction
         Faction = invadingFaction;
     }
@@ -157,10 +186,23 @@ public class Planet : MonoBehaviour, IFaction
     {
         // reduce popultaion
         var amt = Mathf.FloorToInt((Population * 0.5f));
+
+        if (Population - amt < 1)
+        {
+            return;
+        }
+
         Population -= amt;
 
         // fire
         launchPad.Fire(amt, targetPlanet);
+    }
+
+
+
+    public void SetFeed(Planet targetPlanet)
+    {
+        feedTargetPlanet = targetPlanet;
     }
 
 
@@ -179,6 +221,11 @@ public class Planet : MonoBehaviour, IFaction
         {
             Population = value * 5;
         }
+
+        // rotate
+        var direction = Random.onUnitSphere;
+        direction.y *= .1f;
+        transform.rotation = Quaternion.LookRotation(direction);
     }
 
 

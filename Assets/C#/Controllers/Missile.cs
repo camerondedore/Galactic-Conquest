@@ -55,6 +55,14 @@ public class Missile : MonoBehaviour, ILaunch, IFaction
 
         // move to target
         direction = target.transform.position - transform.position;
+
+        // no direction
+        if (direction.sqrMagnitude <= 0)
+        {
+            return;
+        }
+
+        // move and rotate
         var directionNormalized = (direction + targetOffset).normalized;
 
         transform.position += transform.forward * speed * Time.deltaTime;
@@ -66,6 +74,7 @@ public class Missile : MonoBehaviour, ILaunch, IFaction
                 homeSpeed * Mathf.Clamp((Mathf.Pow(distanceTraveled, 2) / direction.sqrMagnitude), .5f, 30) * Time.deltaTime);
         }
 
+        // detect hit
         Hit();
     }
 
