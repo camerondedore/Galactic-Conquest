@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour, IInitializeIntoBlackBoard
 
 
     #region Methods
-    public void AttackSelectedPlanets(bool burst)
+    public void AttackSelectedPlanet(bool burst)
     {
         if (burst)
         {

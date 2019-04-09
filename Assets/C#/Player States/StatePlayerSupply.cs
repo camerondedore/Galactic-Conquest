@@ -78,8 +78,7 @@ public class StatePlayerSupply : State
     public override State Transition()
     {
         // lost attack planet
-        if (((PlayerController)blackBoard["Controller"]).AttackPlanet != null && 
-            ((PlayerController)blackBoard["Controller"]).AttackPlanet.Faction != PlayerController.faction)
+        if (((PlayerController)blackBoard["Controller"]).AttackPlanet.Faction != PlayerController.faction)
         {
             // go to idle
             ((PlayerController)blackBoard["Controller"]).ClearSelectedPlanets();
