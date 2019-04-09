@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class BotController : MonoBehaviour
+public class BotController : MonoBehaviour, IInitializeIntoBlackBoard
 {
     #region Fields
-    [SerializeField] int faction = 2;
+    public int faction = 2;
     #endregion
 
     #region Properties
@@ -15,20 +15,27 @@ public class BotController : MonoBehaviour
 
 
     #region Methods
-    void Update()
+    public string GetBlackBoardKey()
     {
-        // get my planet
-        var me = Planet.Planets.Where(p => p.Faction == faction && Random.Range(0, 10) < 3).FirstOrDefault();
+        return "Controller";
+    }
 
 
-        // get target
-        var them = Planet.Planets.Where(p => p.Faction != faction && Random.Range(0, 10) < 3).FirstOrDefault();
 
-        // attack
-        if (me != null && them != null && Mathf.Floor(Time.time) % 10 == 0)
+    public float GetMapOwnership()
+    {
+        // get proportion of map that is mine
+        var countMine = 0;
+
+        foreach (Planet p in Planet.Planets)
         {
-            me.Attack(them);
+            if (p.Faction == faction)
+            {
+                countMine++;
+            }
         }
+
+        return (float) countMine / Planet.Planets.Count;
     }
     #endregion
 }

@@ -68,7 +68,7 @@ public class Missile : MonoBehaviour, ILaunch, IFaction
         transform.position += transform.forward * speed * Time.deltaTime;
         distanceTraveled += speed * Time.deltaTime;
 
-        if (distanceTraveled > startHomeDistance)
+        if (distanceTraveled > startHomeDistance && transform.forward != directionNormalized)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(directionNormalized, Vector3.up), 
                 homeSpeed * Mathf.Clamp((Mathf.Pow(distanceTraveled, 2) / direction.sqrMagnitude), .5f, 30) * Time.deltaTime);

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -233,6 +234,54 @@ public class Planet : MonoBehaviour, IFaction
     public int GetFaction()
     {
         return Faction;
+    }
+
+
+
+    public static Planet GetClosetPlanetToPoint(Vector3 point, int myFaction, bool isNeutral)
+    {
+        Planet closestPlanet = null;
+        var smallestDist = Mathf.Infinity;
+
+        foreach (Planet p in Planets)
+        {
+            // not my faction
+            if (p.faction == myFaction)
+            {
+                continue;
+            }
+
+            // deal with neutrals
+            if ((p.faction == 0) == !isNeutral)
+            {
+                continue;
+            }
+
+            // get closest
+            var distanceSquared = (point - p.transform.position).sqrMagnitude;
+
+            if (distanceSquared < smallestDist)
+            {
+                smallestDist = distanceSquared;
+                closestPlanet = p;
+            }
+        }
+
+        return closestPlanet;
+    }
+
+
+
+    public static List<Planet> GetMyPlanets(int myFaction)
+    {
+        return Planets.Where(p => p.Faction == myFaction).ToList();
+    }
+
+
+
+    public static int GetCountOfMyPlanets(int myFaction)
+    {
+        return Planets.Where(p => p.Faction == myFaction).ToList().Count;
     }
     #endregion
 }

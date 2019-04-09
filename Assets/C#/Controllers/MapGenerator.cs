@@ -5,6 +5,8 @@ using UnityEngine;
 public class MapGenerator : MonoBehaviour
 {
     #region Fields
+    public static int planetCount = 0;
+
     [SerializeField] int factionCount = 4;
     [SerializeField] float mapRadius = 10;
     [SerializeField] float mapHeight = 1;
@@ -35,6 +37,7 @@ public class MapGenerator : MonoBehaviour
     {
         // spawn player planets;
         int playerNumber = 1;
+        planetCount += playerNumber;
 
         while (playerNumber <= factionCount)
         {
@@ -57,6 +60,7 @@ public class MapGenerator : MonoBehaviour
     {
         // spawn gaia planets
         int count = Random.Range(minPlanets, maxPlanets + 1);
+        planetCount += count;
 
         while (count > 0)
         {

@@ -97,7 +97,7 @@ public class StatePlayerSupply : State
             if (((PlayerController)blackBoard["Controller"]).TargetPlanet != null)
             {
                 // attack
-                ((PlayerController)blackBoard["Controller"]).AttackSelectedPlanets(false);
+                ((PlayerController)blackBoard["Controller"]).AttackSelectedPlanet(false);
             }
             else
             {

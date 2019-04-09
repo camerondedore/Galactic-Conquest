@@ -27,16 +27,16 @@ public class Launcher : MonoBehaviour
     public void Fire(int amt, Planet targetPlanet)
     {
         // add to launch deck
-        StartCoroutine(Launch(amt, targetPlanet));
+        StartCoroutine(Launch(amt, targetPlanet, myPlanet.Faction));
     }
 
 
 
-    IEnumerator Launch(int amt, Planet targetPlanet)
+    IEnumerator Launch(int amt, Planet targetPlanet, int faction)
     {
         var indexToLaunch = 0;
 
-        while (amt > 0)
+        while (amt > 0 && faction == myPlanet.Faction)
         {
             // detect type to launch
             if (targetPlanet.Population > 0 && targetPlanet.Faction != myPlanet.Faction)
