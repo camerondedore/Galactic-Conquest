@@ -13,8 +13,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] int minPlanets = 10;
     [SerializeField] int maxPlanets = 15;
     [SerializeField] GameObject planet = null;
-
-    float minDistanceBetweenPlanetsSquared = 0;
+    [SerializeField] GameObject sun = null;
     #endregion
 
     #region Properties
@@ -25,10 +24,9 @@ public class MapGenerator : MonoBehaviour
     #region Methods
     void Awake()
     {
-        minDistanceBetweenPlanetsSquared = (mapRadius / maxPlanets);
-
         SpawnPlayerPlanets();
-        StartCoroutine(SpawnGaiaPlanets());
+        SpawnGaiaPlanets();
+        SpawnSun();
     }
 
 
@@ -37,7 +35,7 @@ public class MapGenerator : MonoBehaviour
     {
         // spawn player planets;
         int playerNumber = 1;
-        planetCount += playerNumber;
+        planetCount += factionCount;
         Vector3 spawnPos = Vector3.zero;
         float playerAngle = 6.28f / factionCount;
         float phaseShift = Random.Range(0f, 6.28f);
@@ -48,7 +46,7 @@ public class MapGenerator : MonoBehaviour
             spawnPos = Vector3.zero;
 
             // calc spawn pos
-            spawnPos = new Vector3(Mathf.Cos(angle), Random.Range(-mapHeight, mapHeight), Mathf.Sin(angle)) * mapRadius;
+            spawnPos = new Vector3(Mathf.Cos(angle) * mapRadius, Random.Range(-mapHeight, mapHeight), Mathf.Sin(angle) * mapRadius);
 
             // create planet
             CreatePlanet(playerNumber, spawnPos);
@@ -59,7 +57,7 @@ public class MapGenerator : MonoBehaviour
 
 
 
-    IEnumerator SpawnGaiaPlanets()
+    void SpawnGaiaPlanets()
     {
         // spawn gaia planets
         int count = Random.Range(minPlanets, maxPlanets + 1);
@@ -86,10 +84,30 @@ public class MapGenerator : MonoBehaviour
             // create planet
             CreatePlanet(0, spawnPos);
 
-            yield return null;
-
             count--;
         }
+    }
+
+
+
+    void SpawnSun()
+    {
+        Vector3 spawnPos = Vector3.zero;
+        bool validPos = false;
+
+        while (!validPos)
+        {
+            // calc spawn pos
+            spawnPos = new Vector3(Mathf.Round(Random.Range(-mapRadius, mapRadius)),
+            Random.Range(-mapHeight, mapHeight),
+            Mathf.Round(Random.Range(-mapRadius, mapRadius)));
+
+            // check spawn pos
+            validPos = IsFarEnoughAway(spawnPos);
+        }
+
+        // create sun
+        CreateSun(spawnPos);
     }
 
 
@@ -103,7 +121,7 @@ public class MapGenerator : MonoBehaviour
         {
             count++;
             dist = (existingPlanet.transform.position - position).sqrMagnitude;
-            if (dist < minDistanceBetweenPlanetsSquared)
+            if (dist < Planet.maxPlanetRadius * 2)
             {
                 return false;
             }
@@ -117,14 +135,20 @@ public class MapGenerator : MonoBehaviour
     void CreatePlanet(int faction, Vector3 position)
     {
         // spawn planet
-        position.y = Mathf.Clamp(position.y, -mapHeight, mapHeight);
-
         GameObject newPlanet = Instantiate(planet, position, Quaternion.identity) as GameObject;
 
         // generate planet
         var randomness = faction != 0 ? 0 : Random.Range(0, 3);
         var p = newPlanet.GetComponent<Planet>();
         p.Generate(randomness, faction);
+    }
+
+
+
+    void CreateSun(Vector3 position)
+    {
+        // spawn sun
+        Instantiate(sun, position, Quaternion.identity);
     }
     #endregion
 }

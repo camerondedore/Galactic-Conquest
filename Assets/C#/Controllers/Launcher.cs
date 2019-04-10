@@ -9,6 +9,7 @@ public class Launcher : MonoBehaviour
 
     float timeBetweenLaunches = 0.2f;
     Planet myPlanet;
+    int maxLaunchScale = 10;
     #endregion
 
     #region Properties
@@ -37,7 +38,7 @@ public class Launcher : MonoBehaviour
         var indexToLaunch = 0;
 
         // calc scale
-        var scale = Mathf.Clamp(Mathf.FloorToInt(amt / 50), 1, 10);
+        var scale = Mathf.Clamp(Mathf.FloorToInt(amt / 50), 1, maxLaunchScale);
         var myScale = 1;
 
         while (amt > 0 && faction == myPlanet.Faction)

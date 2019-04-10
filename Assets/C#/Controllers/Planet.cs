@@ -9,6 +9,7 @@ public class Planet : MonoBehaviour, IFaction
 
     #region Fields
     public static List<Planet> Planets = new List<Planet>();
+    public static int maxPlanetRadius = 5;
 
     public int growthRate = 1;
 
@@ -18,14 +19,14 @@ public class Planet : MonoBehaviour, IFaction
     [SerializeField] TextMeshPro popText = null;
     [SerializeField] LineRenderer haloFX = null;
     [SerializeField] Launcher launchPad = null;
-    [SerializeField] Material[] planetMaterials;
+    [SerializeField] Material[] planetMaterials = null;
 
     float growthTimer = 0;
     float feedTimer = 0;
     float radius = .5f;
     int populationCap = 100;
     Planet feedTargetPlanet = null;
-    float feedRate = 1;
+    float timeBetweenFeed = 1;
     #endregion
 
     #region Properties
@@ -129,7 +130,7 @@ public class Planet : MonoBehaviour, IFaction
         // feed target
         feedTimer += Time.deltaTime;
 
-        if (feedTimer > feedRate && faction != 0)
+        if (feedTimer > timeBetweenFeed && faction != 0)
         {
             feedTimer = 0;
             Population--;
@@ -215,6 +216,7 @@ public class Planet : MonoBehaviour, IFaction
         random = Mathf.Clamp(random, 0, 2);
 
         var value = Random.Range(3 - random, 3 + random + 1);
+        value = Mathf.Clamp(value, 1, maxPlanetRadius);
 
         // set planet properties
         Faction = newFaction;
@@ -225,7 +227,7 @@ public class Planet : MonoBehaviour, IFaction
         {
             Population = value * 5;
         }
-        feedRate = (2f / growthRate);
+        timeBetweenFeed = (2f / growthRate);
 
         // rotate
         var direction = Random.onUnitSphere;

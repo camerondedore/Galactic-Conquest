@@ -30,7 +30,9 @@ public class CameraController : MonoBehaviour
 
         // init
         mainCam.localPosition = cameraDir * zoom;
-        transform.position = Planet.Planets.Where(p => p.Faction == 1).First().transform.position;
+        var startingPos = Planet.Planets.Where(p => p.Faction == 1).First().transform.position;
+        startingPos.y = 0;
+        transform.position =  startingPos;
     }
 
 
