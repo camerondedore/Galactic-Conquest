@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.1225525, g: 0.13257603, b: 0.16981131, a: 1}
+  m_AmbientSkyColor: {r: 0.22303309, g: 0.23331255, b: 0.26415092, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 8
@@ -309,10 +309,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   factionCount: 4
-  mapRadius: 20
+  mapRadius: 100
   mapHeight: 1
-  minPlanets: 2
-  maxPlanets: 5
+  minPlanets: 5
+  maxPlanets: 20
   planet: {fileID: 4540682468356433352, guid: fae28f7fcc3c0da498d4fb33a4781061, type: 3}
 --- !u!4 &1041982099
 Transform:

@@ -6,7 +6,7 @@ using UnityEngine;
 public class StateBotBuild : State
 {
 
-    Vector2 timeRange = new Vector2(3f, 6f);
+    Vector2 timeRange = new Vector2(1f, 6f);
     float endTime;
 
 
@@ -53,11 +53,12 @@ public class StateBotBuild : State
         // my faction
         var faction = ((BotController)blackBoard["Controller"]).faction;
 
-        var raidChance = Mathf.Clamp(Planet.GetCountOfMyPlanets(faction) / ((float) Planet.Planets.Count), 0.35f, 1);
+        var raidChance = Mathf.Clamp(Planet.GetCountOfMyPlanets(faction) / ((float) Planet.Planets.Count), 0.15f, 1);
 
         // change
         if (Time.time > endTime)
         {
+            // coloize or raid
             return roll > raidChance ? (State)blackBoard["ColonizeState"] : (State)blackBoard["RaidState"];
         }
 

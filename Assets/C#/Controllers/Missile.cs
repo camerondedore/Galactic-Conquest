@@ -25,7 +25,7 @@ public class Missile : MonoBehaviour, ILaunch, IFaction
 
 
     #region Methods
-    public void Launch(Planet targetPlanet, int newFaction)
+    public void Launch(Planet targetPlanet, int newFaction, int scale)
     {
         target = targetPlanet;
         faction = newFaction;
@@ -35,6 +35,12 @@ public class Missile : MonoBehaviour, ILaunch, IFaction
         startHomeDistance *= Random.Range(.9f, 1.1f);
         homeSpeed *= Random.Range(.9f, 1.2f);
         targetOffset = Random.onUnitSphere * targetPlanet.Radius;
+
+        // scale
+        transform.localScale = transform.localScale * scale;
+
+        // adjust damage
+        damage *= scale;
     }
 
 
@@ -53,7 +59,6 @@ public class Missile : MonoBehaviour, ILaunch, IFaction
             return;
         }
 
-        // move to target
         direction = target.transform.position - transform.position;
 
         // no direction
@@ -62,11 +67,12 @@ public class Missile : MonoBehaviour, ILaunch, IFaction
             return;
         }
 
-        // move and rotate
-        var directionNormalized = (direction + targetOffset).normalized;
-
+        // move to target
         transform.position += transform.forward * speed * Time.deltaTime;
         distanceTraveled += speed * Time.deltaTime;
+
+        // rotate
+        var directionNormalized = (direction + targetOffset).normalized;
 
         if (distanceTraveled > startHomeDistance && transform.forward != directionNormalized)
         {
@@ -91,7 +97,10 @@ public class Missile : MonoBehaviour, ILaunch, IFaction
                 target.Damage(damage);
                 if (explosionFX != null)
                 {
-                    Instantiate(explosionFX, transform.position, Quaternion.LookRotation(-direction));
+                    GameObject fx = Instantiate(explosionFX, transform.position, Quaternion.LookRotation(-direction)) as GameObject;
+
+                    // scale fx
+                    fx.transform.localScale *= damage;
                 }
             }
             else

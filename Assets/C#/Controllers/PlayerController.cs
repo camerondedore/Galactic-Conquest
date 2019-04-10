@@ -45,6 +45,11 @@ public class PlayerController : MonoBehaviour, IInitializeIntoBlackBoard
             {
                 if (attackPlanet != value)
                 {
+                    if (attackPlanet != null)
+                    {
+                        attackPlanet.Deselect();
+                    }
+
                     attackPlanet = value;
                     attackPlanet.Select();
                 }
@@ -74,6 +79,11 @@ public class PlayerController : MonoBehaviour, IInitializeIntoBlackBoard
             {
                 if (targetPlanet != value)
                 {
+                    if (targetPlanet != null)
+                    {
+                        targetPlanet.Deselect();
+                    }
+
                     targetPlanet = value;
                     targetPlanet.Select();
                     // draw selector line

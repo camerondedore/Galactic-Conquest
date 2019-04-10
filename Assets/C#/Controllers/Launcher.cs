@@ -36,8 +36,14 @@ public class Launcher : MonoBehaviour
     {
         var indexToLaunch = 0;
 
+        // calc scale
+        var scale = Mathf.Clamp(Mathf.FloorToInt(amt / 50), 1, 10);
+        var myScale = 1;
+
         while (amt > 0 && faction == myPlanet.Faction)
         {
+            myScale = Mathf.Clamp(scale, 1, amt);
+
             // detect type to launch
             if (targetPlanet.Population > 0 && targetPlanet.Faction != myPlanet.Faction)
             {
@@ -53,10 +59,11 @@ public class Launcher : MonoBehaviour
 
             GameObject payload = Instantiate(payloads[indexToLaunch], transform.position + launchPad, Quaternion.LookRotation(launchPad)) as GameObject;
             ILaunch m = payload.GetComponent<ILaunch>();
-            m.Launch(targetPlanet, myPlanet.Faction);
-            amt--;
+            m.Launch(targetPlanet, myPlanet.Faction, myScale);
 
-            yield return new WaitForSeconds(timeBetweenLaunches / (Mathf.Clamp(amt, 1, 100)));
+            amt -= myScale;
+
+            yield return new WaitForSeconds(timeBetweenLaunches / (Mathf.Clamp(amt, 1, 200)));
         }
     }
     #endregion

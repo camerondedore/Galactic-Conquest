@@ -22,7 +22,9 @@ public class Planet : MonoBehaviour, IFaction
     float growthTimer = 0;
     float feedTimer = 0;
     float radius = .5f;
+    int populationCap = 100;
     Planet feedTargetPlanet = null;
+    float feedRate = 1;
     #endregion
 
     #region Properties
@@ -35,7 +37,7 @@ public class Planet : MonoBehaviour, IFaction
 
         set
         {
-            population = Mathf.Clamp(value, 0, int.MaxValue);
+            population = Mathf.Clamp(value, 0, populationCap);
             // update display
             popText.text = population.ToString();
         }
@@ -84,6 +86,7 @@ public class Planet : MonoBehaviour, IFaction
         Faction = faction;
         Deselect();
         Planets.Add(this);
+        feedRate = (2f / growthRate);
     }
 
 
@@ -127,7 +130,7 @@ public class Planet : MonoBehaviour, IFaction
         // feed target
         feedTimer += Time.deltaTime;
 
-        if (feedTimer > (2f / growthRate) && faction != 0)
+        if (feedTimer > feedRate && faction != 0)
         {
             feedTimer = 0;
             Population--;
@@ -212,12 +215,13 @@ public class Planet : MonoBehaviour, IFaction
     {
         random = Mathf.Clamp(random, 0, 2);
 
-        var value = Random.Range(3 - random, 3 + random);
+        var value = Random.Range(3 - random, 3 + random + 1);
 
         // set planet properties
         Faction = newFaction;
         Radius = value * 0.5f;
         growthRate = value;
+        populationCap = value * 100;
         if (faction != 0)
         {
             Population = value * 5;
