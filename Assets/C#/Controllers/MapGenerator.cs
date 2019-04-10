@@ -25,7 +25,7 @@ public class MapGenerator : MonoBehaviour
     #region Methods
     void Awake()
     {
-        minDistanceBetweenPlanetsSquared = Mathf.Pow(mapRadius / maxPlanets, 2) * 4;
+        minDistanceBetweenPlanetsSquared = (mapRadius / maxPlanets);
 
         SpawnPlayerPlanets();
         StartCoroutine(SpawnGaiaPlanets());
@@ -38,11 +38,14 @@ public class MapGenerator : MonoBehaviour
         // spawn player planets;
         int playerNumber = 1;
         planetCount += playerNumber;
+        Vector3 spawnPos = Vector3.zero;
+        float playerAngle = 6.28f / factionCount;
+        float phaseShift = Random.Range(0f, 6.28f);
 
         while (playerNumber <= factionCount)
         {
-            var angle = Random.Range(0f, 6.28f);
-            Vector3 spawnPos = Vector3.zero;
+            var angle = playerAngle * playerNumber + phaseShift;
+            spawnPos = Vector3.zero;
 
             // calc spawn pos
             spawnPos = new Vector3(Mathf.Cos(angle), Random.Range(-mapHeight, mapHeight), Mathf.Sin(angle)) * mapRadius;

@@ -18,6 +18,7 @@ public class Planet : MonoBehaviour, IFaction
     [SerializeField] TextMeshPro popText = null;
     [SerializeField] LineRenderer haloFX = null;
     [SerializeField] Launcher launchPad = null;
+    [SerializeField] Material[] planetMaterials;
 
     float growthTimer = 0;
     float feedTimer = 0;
@@ -55,6 +56,8 @@ public class Planet : MonoBehaviour, IFaction
             faction = value;
             // update display
             popText.color = FXFactionColor.factionColors[faction];
+            // clear planets
+            feedTargetPlanet = null;
         }
     }
 
@@ -69,9 +72,6 @@ public class Planet : MonoBehaviour, IFaction
         {
             radius = value;
             transform.localScale = Vector3.one * 2 * value;
-            //var newLocalPos = popText.transform.localPosition;
-            //newLocalPos.y = value + 1;
-            //popText.transform.localPosition = newLocalPos;
         }
     }
     #endregion
@@ -86,7 +86,6 @@ public class Planet : MonoBehaviour, IFaction
         Faction = faction;
         Deselect();
         Planets.Add(this);
-        feedRate = (2f / growthRate);
     }
 
 
@@ -226,11 +225,15 @@ public class Planet : MonoBehaviour, IFaction
         {
             Population = value * 5;
         }
+        feedRate = (2f / growthRate);
 
         // rotate
         var direction = Random.onUnitSphere;
         direction.y *= .1f;
         transform.rotation = Quaternion.LookRotation(direction);
+
+        // material
+        GetComponent<Renderer>().material = planetMaterials[Random.Range(0, planetMaterials.Length)];
     }
 
 

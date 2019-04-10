@@ -37,7 +37,7 @@ public class Missile : MonoBehaviour, ILaunch, IFaction
         targetOffset = Random.onUnitSphere * targetPlanet.Radius;
 
         // scale
-        transform.localScale = transform.localScale * scale;
+        transform.localScale = transform.localScale * scale * 0.5f;
 
         // adjust damage
         damage *= scale;
