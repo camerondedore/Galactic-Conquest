@@ -26,15 +26,12 @@ public class StateBotRaid : State
 
     public override void StartState()
     {
-        // my faction
         var faction = ((BotController)blackBoard["Controller"]).faction;
 
-        // get my planets
         var myPlanets = Planet.GetMyPlanets(faction);
-        // get attacker
+
         var attackPlanet = myPlanets[Random.Range(0, myPlanets.Count)];
 
-        // get target
         var closetPlanet = Planet.GetClosetPlanetToPoint(attackPlanet.transform.position, faction, false);
 
         if (closetPlanet != null)
@@ -54,7 +51,6 @@ public class StateBotRaid : State
 
     public override State Transition()
     {
-        // keep building
         return (State)blackBoard["BuildState"];
     }
 }

@@ -16,13 +16,11 @@ public class FXPlanetText : MonoBehaviour
     #region Methods
     void Start()
     {
-        // get main camera
         if (mainCam == null)
         {
             mainCam = Camera.main.transform;
         }
 
-        // set rotation
         transform.forward = mainCam.forward;
     }
     #endregion

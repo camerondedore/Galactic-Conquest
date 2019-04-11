@@ -6,16 +6,16 @@ public class Missile : MonoBehaviour, ILaunch, IFaction
 {
     #region Fields
     public Planet target;
+    public float speed = 5,
+        homeSpeed = 2;
     public int damage = 1;
-    public float speed = 5;
-    public float homeSpeed = 2;
 
     [SerializeField] GameObject explosionFX = null;
 
-    Vector3 direction;
-    Vector3 targetOffset;
-    float startHomeDistance = 0.5f;
-    float distanceTraveled = 0;
+    Vector3 direction,
+        targetOffset;
+    float startHomeDistance = 0.5f,
+        distanceTraveled = 0;
     int faction;
     #endregion
 
@@ -30,16 +30,13 @@ public class Missile : MonoBehaviour, ILaunch, IFaction
         target = targetPlanet;
         faction = newFaction;
 
-        // randomize
         speed *= Random.Range(.9f, 1.2f);
         startHomeDistance *= Random.Range(.9f, 1.1f);
         homeSpeed *= Random.Range(.9f, 1.2f);
         targetOffset = Random.onUnitSphere * targetPlanet.Radius;
 
-        // scale
         transform.localScale = transform.localScale * scale * 0.5f;
 
-        // adjust damage
         damage *= scale;
     }
 
@@ -61,17 +58,14 @@ public class Missile : MonoBehaviour, ILaunch, IFaction
 
         direction = target.transform.position - transform.position;
 
-        // no direction
         if (direction.sqrMagnitude <= 0)
         {
             return;
         }
 
-        // move to target
         transform.position += transform.forward * speed * Time.deltaTime;
         distanceTraveled += speed * Time.deltaTime;
 
-        // rotate
         var directionNormalized = (direction + targetOffset).normalized;
 
         if (distanceTraveled > startHomeDistance && transform.forward != directionNormalized)
@@ -80,7 +74,6 @@ public class Missile : MonoBehaviour, ILaunch, IFaction
                 homeSpeed * Mathf.Clamp((Mathf.Pow(distanceTraveled, 2) / direction.sqrMagnitude), .5f, 30) * Time.deltaTime);
         }
 
-        // detect hit
         Hit();
     }
 
@@ -88,26 +81,16 @@ public class Missile : MonoBehaviour, ILaunch, IFaction
 
     void Hit()
     {
-        // hit target
         if (direction.sqrMagnitude <= Mathf.Pow(target.Radius, 2) * 1.05f)
         {
-            if (target.Faction != faction && target.Faction != 0)
-            {
-                // damage
-                target.Damage(damage);
-                if (explosionFX != null)
-                {
-                    GameObject fx = Instantiate(explosionFX, transform.position, Quaternion.LookRotation(-direction)) as GameObject;
+            target.Damage(faction, damage);
 
-                    // scale fx
-                    fx.transform.localScale *= damage;
-                }
-            }
-            else
+            if (explosionFX != null && target.Faction != faction)
             {
-                // invade
-                target.Invade(faction, damage);
+                GameObject fx = Instantiate(explosionFX, transform.position, Quaternion.LookRotation(-direction)) as GameObject;
+                fx.transform.localScale *= damage;
             }
+
             Destroy(gameObject);
         }
     }

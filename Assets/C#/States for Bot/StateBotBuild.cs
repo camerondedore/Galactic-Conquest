@@ -20,7 +20,6 @@ public class StateBotBuild : State
 
     public override void RunState()
     {
-        // my faction
         var faction = ((BotController)blackBoard["Controller"]).faction;
 
         if (Planet.GetCountOfMyPlanets(faction) < 1)
@@ -47,22 +46,17 @@ public class StateBotBuild : State
 
     public override State Transition()
     {
-        // roll
         var roll = Random.Range(0f, 1f);
 
-        // my faction
         var faction = ((BotController)blackBoard["Controller"]).faction;
 
         var raidChance = Mathf.Clamp(Planet.GetCountOfMyPlanets(faction) / ((float) Planet.Planets.Count), 0.15f, 1);
 
-        // change
         if (Time.time > endTime)
         {
-            // coloize or raid
             return roll > raidChance ? (State)blackBoard["ColonizeState"] : (State)blackBoard["RaidState"];
         }
 
-        // keep building
         return this;
     }
 }

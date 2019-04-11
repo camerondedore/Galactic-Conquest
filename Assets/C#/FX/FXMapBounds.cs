@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FXSelectPlanet : MonoBehaviour
+public class FXMapBounds : MonoBehaviour
 {
     #region Fields
-    [SerializeField] int resolution = 20;
+    [SerializeField] int resolution = 60;
 
     LineRenderer lineRend;
-    Planet myPlanet;
+    MapGenerator generator;
     #endregion
 
     #region Properties
@@ -20,7 +20,7 @@ public class FXSelectPlanet : MonoBehaviour
     void Start()
     {
         lineRend = GetComponent<LineRenderer>();
-        myPlanet = transform.root.GetComponent<Planet>();
+        generator = transform.root.GetComponent<MapGenerator>();
         DrawCircle();
     }
 
@@ -35,7 +35,9 @@ public class FXSelectPlanet : MonoBehaviour
 
         while (angle < 360)
         {
-            var point = transform.position + new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), 0, Mathf.Sin(angle * Mathf.Deg2Rad)) * myPlanet.Radius * 1.1f;
+            var point = transform.position + new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), 
+                0, 
+                Mathf.Sin(angle * Mathf.Deg2Rad)) * (generator.mapRadius + Planet.maxPlanetRadius);
             points.Add(point);
 
             angle += angleDelta;

@@ -34,7 +34,7 @@ public class FXFactionColor : MonoBehaviour
     IEnumerator Delay()
     {
         yield return null;
-        // set color
+
         var faction = transform.root.GetComponent<IFaction>().GetFaction();
         GetComponent<Renderer>().material.SetColor("_Color", factionColors[faction]);
         GetComponent<Renderer>().material.SetColor("_EmissionColor", factionColors[faction]);

@@ -18,13 +18,10 @@ public class SuperStateBotStaging : SuperState
 
     public override void RunState()
     {
-        // run sub state
         subState.RunState();
 
-        // check sub state for transitions
         State nextState = subState.Transition();
 
-        // transition substate
         SetState(nextState);
     }
 
@@ -46,12 +43,10 @@ public class SuperStateBotStaging : SuperState
 
     public override State Transition()
     {
-        // has half of their proportion of planets
-        if (((BotController)blackBoard["Controller"]).GetMapOwnership() > .5f / MapGenerator.planetCount)
+        /*if (((BotController)blackBoard["Controller"]).GetMapOwnership() > .5f / MapGenerator.planetCount)
         {
-            // skirmish mode
-            //return (State)blackBoard["SkirmishState"];
-        }
+            return (State)blackBoard["SkirmishState"];
+        }*/
 
         return this;
     }

@@ -16,7 +16,6 @@ public class FXSelectLine : MonoBehaviour
     #region Methods
     void Start()
     {
-        // init
         lineRend = GetComponent<LineRenderer>();
     }
 
@@ -27,11 +26,9 @@ public class FXSelectLine : MonoBehaviour
         lineRend.positionCount = 2;
         Vector3[] points = new Vector3[2];
 
-        // calc start and end
         points[0] = attackPlanet.transform.position;
         points[1] = targetPlanet.transform.position;
 
-        // set points to line renderer
         lineRend.SetPositions(points);
     }
 

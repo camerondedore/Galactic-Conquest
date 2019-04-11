@@ -7,8 +7,8 @@ public class Launcher : MonoBehaviour
     #region Fields
     [SerializeField] GameObject[] payloads = null;
 
-    float timeBetweenLaunches = 0.2f;
     Planet myPlanet;
+    float timeBetweenLaunches = 0.2f;
     int maxLaunchScale = 10;
     #endregion
 
@@ -27,7 +27,6 @@ public class Launcher : MonoBehaviour
 
     public void Fire(int amt, Planet targetPlanet)
     {
-        // add to launch deck
         StartCoroutine(Launch(amt, targetPlanet, myPlanet.Faction));
     }
 
@@ -37,8 +36,7 @@ public class Launcher : MonoBehaviour
     {
         var indexToLaunch = 0;
 
-        // calc scale
-        var scale = Mathf.Clamp(Mathf.FloorToInt(amt / 50), 1, maxLaunchScale);
+        var scale = Mathf.Clamp(Mathf.FloorToInt(amt / 50) + 1, 1, maxLaunchScale);
         var myScale = 1;
 
         while (amt > 0 && faction == myPlanet.Faction)
@@ -55,7 +53,6 @@ public class Launcher : MonoBehaviour
                 indexToLaunch = 1;
             }
 
-            // launch
             Vector3 launchPad = Random.onUnitSphere * myPlanet.Radius;
 
             GameObject payload = Instantiate(payloads[indexToLaunch], transform.position + launchPad, Quaternion.LookRotation(launchPad)) as GameObject;

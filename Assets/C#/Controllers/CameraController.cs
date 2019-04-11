@@ -7,14 +7,14 @@ public class CameraController : MonoBehaviour
 {
     #region Fields
     Transform mainCam;
-    float moveSpeed = 20;
-    float zoomSpeed = 100;
-    int moveAreaWidth = 50;
-    float maxZoom = 30;
-    float minZoom = 4;
     Vector3 cameraDir;
-    float zoom = 10;
-    float multiplier = 3;
+    int moveAreaWidth = 50;
+    float moveSpeed = 20,
+        zoomSpeed = 100,
+        maxZoom = 30,
+        minZoom = 4,
+        zoom = 10,
+        multiplier = 3;
     #endregion
 
     #region Properties
@@ -28,7 +28,6 @@ public class CameraController : MonoBehaviour
         mainCam = GetComponentInChildren<Camera>().transform;
         cameraDir = (mainCam.transform.position - transform.position).normalized;
 
-        // init
         mainCam.localPosition = cameraDir * zoom;
         var startingPos = Planet.Planets.Where(p => p.Faction == 1).First().transform.position;
         startingPos.y = 0;

@@ -24,7 +24,6 @@ public class BotController : MonoBehaviour, IInitializeIntoBlackBoard
 
     public float GetMapOwnership()
     {
-        // get proportion of map that is mine
         var countMine = 0;
 
         foreach (Planet p in Planet.Planets)

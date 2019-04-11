@@ -7,13 +7,14 @@ public class MapGenerator : MonoBehaviour
     #region Fields
     public static int planetCount = 0;
 
-    [SerializeField] int factionCount = 4;
-    [SerializeField] float mapRadius = 10;
+    public float mapRadius = 10;
+
+    [SerializeField] GameObject planet = null,
+        sun = null;
     [SerializeField] float mapHeight = 1;
-    [SerializeField] int minPlanets = 10;
-    [SerializeField] int maxPlanets = 15;
-    [SerializeField] GameObject planet = null;
-    [SerializeField] GameObject sun = null;
+    [SerializeField] int factionCount = 4,
+        minPlanets = 10,
+        maxPlanets = 15;
     #endregion
 
     #region Properties
@@ -33,7 +34,6 @@ public class MapGenerator : MonoBehaviour
 
     void SpawnPlayerPlanets()
     {
-        // spawn player planets;
         int playerNumber = 1;
         planetCount += factionCount;
         Vector3 spawnPos = Vector3.zero;
@@ -43,12 +43,8 @@ public class MapGenerator : MonoBehaviour
         while (playerNumber <= factionCount)
         {
             var angle = playerAngle * playerNumber + phaseShift;
-            spawnPos = Vector3.zero;
-
-            // calc spawn pos
             spawnPos = new Vector3(Mathf.Cos(angle) * mapRadius, Random.Range(-mapHeight, mapHeight), Mathf.Sin(angle) * mapRadius);
 
-            // create planet
             CreatePlanet(playerNumber, spawnPos);
 
             playerNumber++;
@@ -59,7 +55,6 @@ public class MapGenerator : MonoBehaviour
 
     void SpawnGaiaPlanets()
     {
-        // spawn gaia planets
         int count = Random.Range(minPlanets, maxPlanets + 1);
         planetCount += count;
 
@@ -67,21 +62,17 @@ public class MapGenerator : MonoBehaviour
         {
             Vector3 spawnPos = Vector3.zero;
 
-            // check planet distances
             var validPos = false;
 
             while (!validPos)
             {
-                // calc spawn pos
-                spawnPos = new Vector3(Mathf.Round(Random.Range(-mapRadius, mapRadius)),
-                Random.Range(-mapHeight, mapHeight),
-                Mathf.Round(Random.Range(-mapRadius, mapRadius)));
+                var angle = Random.Range(0f, 6.28f);
+                var myRadius = Random.Range(0f, mapRadius);
+                spawnPos = new Vector3(Mathf.Cos(angle) * myRadius, Random.Range(-mapHeight, mapHeight), Mathf.Sin(angle) * myRadius);
 
-                // check spawn pos
                 validPos = IsFarEnoughAway(spawnPos);
             }
 
-            // create planet
             CreatePlanet(0, spawnPos);
 
             count--;
@@ -97,16 +88,13 @@ public class MapGenerator : MonoBehaviour
 
         while (!validPos)
         {
-            // calc spawn pos
             spawnPos = new Vector3(Mathf.Round(Random.Range(-mapRadius, mapRadius)),
-            Random.Range(-mapHeight, mapHeight),
-            Mathf.Round(Random.Range(-mapRadius, mapRadius)));
+                Random.Range(-mapHeight, mapHeight),
+                Mathf.Round(Random.Range(-mapRadius, mapRadius)));
 
-            // check spawn pos
             validPos = IsFarEnoughAway(spawnPos);
         }
 
-        // create sun
         CreateSun(spawnPos);
     }
 
@@ -121,7 +109,7 @@ public class MapGenerator : MonoBehaviour
         {
             count++;
             dist = (existingPlanet.transform.position - position).sqrMagnitude;
-            if (dist < Planet.maxPlanetRadius * 2)
+            if (dist < Planet.maxPlanetRadius * 4)
             {
                 return false;
             }
@@ -134,10 +122,8 @@ public class MapGenerator : MonoBehaviour
 
     void CreatePlanet(int faction, Vector3 position)
     {
-        // spawn planet
         GameObject newPlanet = Instantiate(planet, position, Quaternion.identity) as GameObject;
 
-        // generate planet
         var randomness = faction != 0 ? 0 : Random.Range(0, 3);
         var p = newPlanet.GetComponent<Planet>();
         p.Generate(randomness, faction);
@@ -147,7 +133,6 @@ public class MapGenerator : MonoBehaviour
 
     void CreateSun(Vector3 position)
     {
-        // spawn sun
         Instantiate(sun, position, Quaternion.identity);
     }
     #endregion

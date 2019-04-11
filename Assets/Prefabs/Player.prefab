@@ -72,7 +72,7 @@ LineRenderer:
   m_Positions: []
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.05
+    widthMultiplier: 0.1
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -189,12 +189,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPlanet: {fileID: 0}
   targetPlanet: {fileID: 0}
+  hitPlanet: {fileID: 0}
   mainCam: {fileID: 0}
   planetMask:
     serializedVersion: 2
     m_Bits: 1
   lineFX: {fileID: 3647149886240354780}
-  hitPlanet: {fileID: 0}
 --- !u!114 &3647149887351643149
 MonoBehaviour:
   m_ObjectHideFlags: 0

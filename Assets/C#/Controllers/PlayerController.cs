@@ -5,20 +5,17 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour, IInitializeIntoBlackBoard
 {
     #region Fields
-    public Planet attackPlanet;
-    public Planet targetPlanet;
+    public static int cursorHotspotSize = 64;
+    public static int faction = 1;
+
+    public Planet attackPlanet,
+        targetPlanet,
+        hitPlanet = null;
 
     [Space]
     [SerializeField] Camera mainCam = null;
     [SerializeField] LayerMask planetMask = 0;
     [SerializeField] FXSelectLine lineFX = null;
-
-
-    // new
-    public static int cursorHotspotSize = 64;
-    public static int faction = 1;
-
-    public Planet hitPlanet = null;
 
     RaycastHit mouseHit;
     #endregion
@@ -86,7 +83,6 @@ public class PlayerController : MonoBehaviour, IInitializeIntoBlackBoard
 
                     targetPlanet = value;
                     targetPlanet.Select();
-                    // draw selector line
                     lineFX.DrawLine(attackPlanet, targetPlanet);
                 }
             }
@@ -101,16 +97,13 @@ public class PlayerController : MonoBehaviour, IInitializeIntoBlackBoard
     {
         if (burst)
         {
-            // burst
             AttackPlanet.Attack(TargetPlanet);
         }
         else
         {
-            // feed
             AttackPlanet.SetFeed(TargetPlanet);
         }
 
-        // clear selected planets
         ClearSelectedPlanets();
     }
 
@@ -133,20 +126,14 @@ public class PlayerController : MonoBehaviour, IInitializeIntoBlackBoard
 
     public Planet GetPlanetUnderMouse()
     {
-        // get clicked on point
         var mouse3dCoord = GetMouseWorldCoord(1000);
 
-        // cast ray to find planet
         var rayDir = mouse3dCoord - mainCam.transform.position;
         Physics.Raycast(mainCam.transform.position, rayDir, out mouseHit, 1000, planetMask);
 
-        //Debug.DrawLine(mainCam.transform.position, mainCam.transform.position + rayDir);
-
-        // something was hit
         var hitCollider = mouseHit.collider;
         if (hitCollider != null)
         {
-            // planet was hit
             var hitPlanet = hitCollider.GetComponent<Planet>();
             if (hitPlanet != null)
             {
@@ -161,7 +148,6 @@ public class PlayerController : MonoBehaviour, IInitializeIntoBlackBoard
 
     Vector3 GetMouseWorldCoord(float y)
     {
-        // get clicked on point
         var mouse2dCoord = Input.mousePosition;
         var mouse2dCoordDepth = new Vector3(mouse2dCoord.x, mouse2dCoord.y, y);
         var mouse3dCoord = mainCam.ScreenToWorldPoint(mouse2dCoordDepth);

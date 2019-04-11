@@ -13,20 +13,20 @@ public class Planet : MonoBehaviour, IFaction
 
     public int growthRate = 1;
 
-    [SerializeField] int population = 0;
-    [SerializeField] int faction = 0;
+    [SerializeField] int population = 0,
+        faction = 0;
     [Space]
     [SerializeField] TextMeshPro popText = null;
     [SerializeField] LineRenderer haloFX = null;
     [SerializeField] Launcher launchPad = null;
     [SerializeField] Material[] planetMaterials = null;
 
-    float growthTimer = 0;
-    float feedTimer = 0;
-    float radius = .5f;
+    [SerializeField] Planet feedTargetPlanet = null;
+    float growthTimer = 0,
+        feedTimer = 0,
+        radius = .5f,
+        timeBetweenFeed = 1;
     int populationCap = 100;
-    Planet feedTargetPlanet = null;
-    float timeBetweenFeed = 1;
     #endregion
 
     #region Properties
@@ -40,7 +40,6 @@ public class Planet : MonoBehaviour, IFaction
         set
         {
             population = Mathf.Clamp(value, 0, populationCap);
-            // update display
             popText.text = population.ToString();
         }
     }
@@ -55,9 +54,7 @@ public class Planet : MonoBehaviour, IFaction
         set
         {
             faction = value;
-            // update display
             popText.color = FXFactionColor.factionColors[faction];
-            // clear planets
             feedTargetPlanet = null;
         }
     }
@@ -82,7 +79,6 @@ public class Planet : MonoBehaviour, IFaction
     #region Methods
     void Awake()
     {
-        // init
         Population = population;
         Faction = faction;
         Deselect();
@@ -108,7 +104,6 @@ public class Planet : MonoBehaviour, IFaction
 
     void Grow()
     {
-        // grow population
         growthTimer += Time.deltaTime;
 
         if (growthTimer > 1 && faction != 0)
@@ -127,7 +122,6 @@ public class Planet : MonoBehaviour, IFaction
             return;
         }
 
-        // feed target
         feedTimer += Time.deltaTime;
 
         if (feedTimer > timeBetweenFeed && faction != 0)
@@ -140,34 +134,22 @@ public class Planet : MonoBehaviour, IFaction
 
 
 
-    public void Damage(int damage)
+    public void Damage(int attackerFaction, int damage)
     {
-        // damage population
-        Population -= damage;
-
-        // remove faction
-        if (population == 0)
+        if (attackerFaction != Faction)
         {
-            Faction = 0;
-            launchPad.StopAllCoroutines();
+            Population -= damage;
+
+            if (Population == 0)
+            {
+                Faction = attackerFaction;
+                launchPad.StopAllCoroutines();
+            }
         }
-    }
-
-
-
-    public void Invade(int invadingFaction, int forceSize)
-    {
-        // add population
-        Population += forceSize;
-
-        // stop feed
-        if (invadingFaction != faction)
+        else
         {
-            feedTargetPlanet = null;
+            Population += damage;
         }
-
-        // change faction
-        Faction = invadingFaction;
     }
 
 
@@ -188,7 +170,6 @@ public class Planet : MonoBehaviour, IFaction
 
     public void Attack(Planet targetPlanet)
     {
-        // reduce popultaion
         var amt = Mathf.FloorToInt((Population * 0.5f));
 
         if (Population - amt < 1)
@@ -198,7 +179,6 @@ public class Planet : MonoBehaviour, IFaction
 
         Population -= amt;
 
-        // fire
         launchPad.Fire(amt, targetPlanet);
     }
 
@@ -218,23 +198,22 @@ public class Planet : MonoBehaviour, IFaction
         var value = Random.Range(3 - random, 3 + random + 1);
         value = Mathf.Clamp(value, 1, maxPlanetRadius);
 
-        // set planet properties
         Faction = newFaction;
         Radius = value * 0.5f;
         growthRate = value;
         populationCap = value * 100;
+
         if (faction != 0)
         {
             Population = value * 5;
         }
+
         timeBetweenFeed = (2f / growthRate);
 
-        // rotate
         var direction = Random.onUnitSphere;
         direction.y *= .1f;
         transform.rotation = Quaternion.LookRotation(direction);
 
-        // material
         GetComponent<Renderer>().material = planetMaterials[Random.Range(0, planetMaterials.Length)];
     }
 
@@ -254,19 +233,16 @@ public class Planet : MonoBehaviour, IFaction
 
         foreach (Planet p in Planets)
         {
-            // not my faction
             if (p.faction == myFaction)
             {
                 continue;
             }
 
-            // deal with neutrals
             if ((p.faction == 0) == !isNeutral)
             {
                 continue;
             }
 
-            // get closest
             var distanceSquared = (point - p.transform.position).sqrMagnitude;
 
             if (distanceSquared < smallestDist)
