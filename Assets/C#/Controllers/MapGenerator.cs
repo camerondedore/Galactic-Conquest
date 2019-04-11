@@ -83,7 +83,7 @@ public class MapGenerator : MonoBehaviour
 
     void SpawnSun()
     {
-        Vector3 spawnPos = Vector3.zero;
+        var spawnPos = Vector3.zero;
         bool validPos = false;
 
         while (!validPos)
@@ -122,7 +122,7 @@ public class MapGenerator : MonoBehaviour
 
     void CreatePlanet(int faction, Vector3 position)
     {
-        GameObject newPlanet = Instantiate(planet, position, Quaternion.identity) as GameObject;
+        var newPlanet = Instantiate(planet, position, Quaternion.identity);
 
         var randomness = faction != 0 ? 0 : Random.Range(0, 3);
         var p = newPlanet.GetComponent<Planet>();

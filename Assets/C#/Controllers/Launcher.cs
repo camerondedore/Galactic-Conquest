@@ -53,9 +53,9 @@ public class Launcher : MonoBehaviour
                 indexToLaunch = 1;
             }
 
-            Vector3 launchPad = Random.onUnitSphere * myPlanet.Radius;
+            var launchPad = Random.onUnitSphere * myPlanet.Radius;
 
-            GameObject payload = Instantiate(payloads[indexToLaunch], transform.position + launchPad, Quaternion.LookRotation(launchPad)) as GameObject;
+            var payload = Instantiate(payloads[indexToLaunch], transform.position + launchPad, Quaternion.LookRotation(launchPad));
             ILaunch m = payload.GetComponent<ILaunch>();
             m.Launch(targetPlanet, myPlanet.Faction, myScale);
 
