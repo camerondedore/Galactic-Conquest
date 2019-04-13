@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8357967729031827650}
   - component: {fileID: 6576627020134911565}
   m_Layer: 0
-  m_Name: FX Shockwave
+  m_Name: FX Explosion Flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -284,8 +284,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1
-      minScalar: 0.5
+      scalar: 0.5
+      minScalar: 0.2
       maxCurve:
         serializedVersion: 2
         m_Curve:

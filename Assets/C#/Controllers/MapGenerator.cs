@@ -109,7 +109,7 @@ public class MapGenerator : MonoBehaviour
         {
             count++;
             dist = (existingPlanet.transform.position - position).sqrMagnitude;
-            if (dist < Planet.maxPlanetRadius * 4)
+            if (dist < Planet.maxPlanetRadius * 2)
             {
                 return false;
             }

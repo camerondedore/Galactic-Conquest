@@ -15,7 +15,7 @@ public interface IFaction
 public class FXFactionColor : MonoBehaviour
 {
     #region Fields
-    public static Color[] factionColors = { new Color(.5f, .5f, .5f), new Color(.2f, .4f, .8f), new Color(.8f, .2f, .2f), new Color(.8f, .6f, .3f), new Color(.2f, .8f, .5f) };
+    public static Color[] factionColors = { new Color(.5f, .5f, .5f), new Color(.1f, .1f, 1f), new Color(1f, .1f, .1f), new Color(1, 1, .1f), new Color(.1f, 1, 1) };
 
 	[SerializeField] float bloom = 1;
 	#endregion

@@ -35,7 +35,7 @@ public class Missile : MonoBehaviour, ILaunch, IFaction
         homeSpeed *= Random.Range(.9f, 1.2f);
         targetOffset = Random.onUnitSphere * targetPlanet.Radius;
 
-        transform.localScale = transform.localScale * scale * 0.5f;
+        transform.localScale = transform.localScale * ( .25f * scale + .75f);
 
         damage *= scale;
     }
