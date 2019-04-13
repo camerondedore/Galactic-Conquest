@@ -88,7 +88,7 @@ public class Missile : MonoBehaviour, ILaunch, IFaction
             if (explosionFX != null && target.Faction != faction)
             {
                 GameObject fx = Instantiate(explosionFX, transform.position, Quaternion.LookRotation(-direction)) as GameObject;
-                fx.transform.localScale *= damage;
+                fx.transform.localScale *= (.25f * damage + .75f);
             }
 
             Destroy(gameObject);
