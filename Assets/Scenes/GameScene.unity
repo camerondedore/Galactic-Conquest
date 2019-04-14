@@ -838,17 +838,17 @@ PrefabInstance:
     - target: {fileID: 4817381639576671680, guid: 40b7d6d6766b34245bf672d38e32029b,
         type: 3}
       propertyPath: mapRadius
-      value: 50
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4817381639576671680, guid: 40b7d6d6766b34245bf672d38e32029b,
         type: 3}
       propertyPath: minPlanets
-      value: 30
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4817381639576671680, guid: 40b7d6d6766b34245bf672d38e32029b,
         type: 3}
       propertyPath: maxPlanets
-      value: 50
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4817381639576671680, guid: 40b7d6d6766b34245bf672d38e32029b,
         type: 3}

@@ -13,10 +13,10 @@ public class PlayerController : MonoBehaviour, IInitializeIntoBlackBoard
         hitPlanet = null;
 
     [Space]
-    [SerializeField] Camera mainCam = null;
     [SerializeField] LayerMask planetMask = 0;
     [SerializeField] FXSelectLine lineFX = null;
 
+    Camera mainCam = null;
     RaycastHit mouseHit;
     #endregion
 
@@ -88,11 +88,18 @@ public class PlayerController : MonoBehaviour, IInitializeIntoBlackBoard
             }
         }
     }
-    #endregion
+	#endregion
 
 
 
-    #region Methods
+	#region Methods
+	void Start()
+	{
+		mainCam = Camera.main;
+	}
+
+
+
     public void AttackSelectedPlanet(bool burst)
     {
         if (burst)

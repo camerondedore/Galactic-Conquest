@@ -10,7 +10,7 @@ public class CameraController : MonoBehaviour
     Vector3 cameraDir;
     int moveAreaWidth = 50;
     float moveSpeed = 20,
-        zoomSpeed = 100,
+        zoomSpeed = 200,
         maxZoom = 30,
         minZoom = 4,
         zoom = 10,
@@ -25,13 +25,14 @@ public class CameraController : MonoBehaviour
     #region Methods
     void Start()
     {
-        mainCam = GetComponentInChildren<Camera>().transform;
-        cameraDir = (mainCam.transform.position - transform.position).normalized;
+		mainCam = Camera.main.transform;
+        cameraDir = new Vector3(0, 0.5f, -1).normalized;
 
         mainCam.localPosition = cameraDir * zoom;
         var startingPos = Planet.Planets.Where(p => p.Faction == 1).First().transform.position;
         startingPos.y = 0;
-        transform.position =  startingPos;
+        transform.position = startingPos;
+		mainCam.forward = -cameraDir;
     }
 
 
@@ -52,7 +53,7 @@ public class CameraController : MonoBehaviour
             zoom = Mathf.Clamp(zoom, minZoom, maxZoom);
         }
 
-        mainCam.localPosition = Vector3.Lerp(mainCam.localPosition, cameraDir * zoom, 3 * Time.deltaTime);
+        mainCam.position = Vector3.Lerp(mainCam.position, transform.position + cameraDir * zoom, 10 * Time.deltaTime);
     }
 
 

@@ -1,29 +1,80 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MapGenerator : MonoBehaviour
 {
     #region Fields
     public static int planetCount = 0;
-
-    public float mapRadius = 10;
+    static float mapRadius = 20;
+    static int factionCount = 2,
+        minPlanets = 10,
+        maxPlanets = 15;
 
     [SerializeField] GameObject planet = null,
         sun = null;
     [SerializeField] float mapHeight = 1;
-    [SerializeField] int factionCount = 4,
-        minPlanets = 10,
-        maxPlanets = 15;
     #endregion
 
     #region Properties
-    #endregion
+	public static int FactionCount
+	{
+		get
+		{
+			return factionCount;
+		}
+
+		set
+		{
+			factionCount = Mathf.Clamp(value, 2, 4);
+		}
+	}
+
+	public static int MinPlanets
+	{
+		get
+		{
+			return minPlanets;
+		}
+
+		set
+		{
+			minPlanets = Mathf.Clamp( value, 1, maxPlanets);
+		}
+	}
+
+	public static int MaxPlanets
+	{
+		get
+		{
+			return maxPlanets;
+		}
+
+		set
+		{
+			maxPlanets = Mathf.Clamp( value, minPlanets, 30);
+		}
+	}
+
+	public static float MapRadius
+	{
+		get
+		{
+			return mapRadius;
+		}
+
+		set
+		{
+			mapRadius = Mathf.Clamp(value, 20, 60);
+		}
+	}
+	#endregion
 
 
 
-    #region Methods
-    void Awake()
+	#region Methods
+	void Start()
     {
         SpawnPlayerPlanets();
         SpawnGaiaPlanets();

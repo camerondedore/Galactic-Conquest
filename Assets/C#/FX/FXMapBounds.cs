@@ -8,7 +8,6 @@ public class FXMapBounds : MonoBehaviour
     [SerializeField] int resolution = 60;
 
     LineRenderer lineRend;
-    MapGenerator generator;
     #endregion
 
     #region Properties
@@ -20,7 +19,6 @@ public class FXMapBounds : MonoBehaviour
     void Start()
     {
         lineRend = GetComponent<LineRenderer>();
-        generator = transform.root.GetComponent<MapGenerator>();
         DrawCircle();
     }
 
@@ -37,7 +35,7 @@ public class FXMapBounds : MonoBehaviour
         {
             var point = transform.position + new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), 
                 0, 
-                Mathf.Sin(angle * Mathf.Deg2Rad)) * (generator.mapRadius + Planet.maxPlanetRadius);
+                Mathf.Sin(angle * Mathf.Deg2Rad)) * (MapGenerator.MapRadius + Planet.maxPlanetRadius);
             points.Add(point);
 
             angle += angleDelta;
