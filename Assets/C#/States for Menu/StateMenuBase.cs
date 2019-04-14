@@ -6,7 +6,6 @@ public class StateMenuBase : State
 {
 
 	public bool ClickedPlay { get; set; } = false;
-	public bool ClickedTutorial { get; set; } = false;
 	public bool ClickedQuit { get; set; } = false;
 
 	[SerializeField] GameObject baseMenu = null;
@@ -31,7 +30,6 @@ public class StateMenuBase : State
 	{
 		baseMenu.SetActive(true);
 		ClickedPlay = false;
-		ClickedTutorial = false;
 		ClickedQuit = false;
 	}
 
@@ -49,11 +47,6 @@ public class StateMenuBase : State
 		if (ClickedPlay)
 		{
 			return (State)blackBoard["PlayState"];
-		}
-
-		if (ClickedTutorial)
-		{
-			// to tutorial
 		}
 
 		if (ClickedQuit)

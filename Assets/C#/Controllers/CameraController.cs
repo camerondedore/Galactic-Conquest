@@ -5,7 +5,9 @@ using System.Linq;
 
 public class CameraController : MonoBehaviour
 {
-    #region Fields
+	#region Fields
+	[SerializeField] bool startAtMyPlanet = true;
+
     Transform mainCam;
     Vector3 cameraDir;
     int moveAreaWidth = 50;
@@ -28,10 +30,12 @@ public class CameraController : MonoBehaviour
 		mainCam = Camera.main.transform;
         cameraDir = new Vector3(0, 0.5f, -1).normalized;
 
-        mainCam.localPosition = cameraDir * zoom;
-        var startingPos = Planet.Planets.Where(p => p.Faction == 1).First().transform.position;
-        startingPos.y = 0;
-        transform.position = startingPos;
+		if (Planet.GetCountOfMyPlanets(1) > 0 && startAtMyPlanet)
+		{
+			var startingPos = Planet.GetMyPlanets(1)[0].transform.position;
+			startingPos.y = 0;
+			transform.position = startingPos;
+		}
 		mainCam.forward = -cameraDir;
     }
 
