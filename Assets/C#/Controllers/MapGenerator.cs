@@ -7,10 +7,10 @@ public class MapGenerator : MonoBehaviour
 {
     #region Fields
     public static int planetCount = 0;
-    static float mapRadius = 20;
+    static float mapRadius = 30;
     static int factionCount = 2,
-        minPlanets = 10,
-        maxPlanets = 15;
+        minPlanets = 5,
+        maxPlanets = 10;
 
     [SerializeField] GameObject planet = null,
         sun = null;
@@ -66,7 +66,7 @@ public class MapGenerator : MonoBehaviour
 
 		set
 		{
-			mapRadius = Mathf.Clamp(value, 20, 60);
+			mapRadius = Mathf.Clamp(value, 20, 80);
 		}
 	}
 	#endregion
@@ -134,19 +134,11 @@ public class MapGenerator : MonoBehaviour
 
     void SpawnSun()
     {
-        var spawnPos = Vector3.zero;
-        bool validPos = false;
+		var angle = Random.Range(0f, 6.28f);
+		var myRadius = 1.5f * mapRadius;
+		var spawnPos = new Vector3(Mathf.Cos(angle) * myRadius, Random.Range(-mapHeight, mapHeight) * 2, Mathf.Sin(angle) * myRadius);
 
-        while (!validPos)
-        {
-            spawnPos = new Vector3(Mathf.Round(Random.Range(-mapRadius, mapRadius)),
-                Random.Range(-mapHeight, mapHeight),
-                Mathf.Round(Random.Range(-mapRadius, mapRadius)));
-
-            validPos = IsFarEnoughAway(spawnPos);
-        }
-
-        CreateSun(spawnPos);
+		CreateSun(spawnPos);
     }
 
 

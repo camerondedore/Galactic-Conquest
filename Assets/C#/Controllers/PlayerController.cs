@@ -126,7 +126,14 @@ public class PlayerController : MonoBehaviour, IInitializeIntoBlackBoard
 
     void Update()
     {
-        hitPlanet = GetPlanetUnderMouse();
+		if (Time.timeScale > 0)
+		{
+			hitPlanet = GetPlanetUnderMouse();
+		}
+		else
+		{
+			hitPlanet = null;
+		}
     }
 
 

@@ -30,7 +30,12 @@ public class StateBotRaid : State
 
         var myPlanets = Planet.GetMyPlanets(faction);
 
-        var attackPlanet = myPlanets[Random.Range(0, myPlanets.Count)];
+		if (myPlanets.Count < 1)
+		{
+			return;
+		}
+
+		var attackPlanet = myPlanets[Random.Range(0, myPlanets.Count)];
 
         var closetPlanet = Planet.GetClosetPlanetToPoint(attackPlanet.transform.position, faction, false);
 

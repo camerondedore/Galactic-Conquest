@@ -30,6 +30,11 @@ public class StateBotColonize : State
 
         var myPlanets = Planet.GetMyPlanets(faction);
 
+		if (myPlanets.Count < 1)
+		{
+			return;
+		}
+
         var attackPlanet = myPlanets[Random.Range(0, myPlanets.Count)];
 
         var closetPlanet = Planet.GetClosetPlanetToPoint(attackPlanet.transform.position, faction, true);

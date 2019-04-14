@@ -10,7 +10,6 @@ public class StateMenuPlay : State
 	public bool ClickedBack {get; set;} = false;
 
 	[SerializeField] GameObject playMenu = null;
-	[SerializeField] GameObject canvas = null;
 
 
 
@@ -92,6 +91,5 @@ public class StateMenuPlay : State
 		async = SceneManager.LoadSceneAsync("GameScene", LoadSceneMode.Additive);
 		yield return async;
 		SceneManager.SetActiveScene(SceneManager.GetSceneByName("GameScene"));
-		canvas.SetActive(false);
 	}
 }
