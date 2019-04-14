@@ -2446,7 +2446,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
-  m_SubmitButton: Select
+  m_SubmitButton: Feed
   m_CancelButton: Pause
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
