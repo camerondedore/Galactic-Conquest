@@ -13,6 +13,14 @@ public class TutorialEnd : MonoBehaviour
 
 	void Start()
 	{
+		if (PlayerPrefs.GetInt("NotFirstTime") == 1)
+		{
+			SceneManager.LoadScene("MenuScene", LoadSceneMode.Single);
+			return;
+		}
+
+		PlayerPrefs.SetInt("NotFirstTime", 1);
+
 		StartCoroutine(FadeIn());
 	}
 
