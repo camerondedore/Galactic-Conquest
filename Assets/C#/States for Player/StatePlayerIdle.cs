@@ -64,13 +64,20 @@ public class StatePlayerIdle : State
             return this;
         }
 
-        if (Input.GetAxisRaw("Select") > 0 && ((PlayerController) blackBoard["Controller"]).hitPlanet.Faction == PlayerController.faction)
+        if (Input.GetAxisRaw("Burst") > 0 && ((PlayerController) blackBoard["Controller"]).hitPlanet.Faction == PlayerController.faction)
         {
             ((PlayerController)blackBoard["Controller"]).AttackPlanet = ((PlayerController)blackBoard["Controller"]).hitPlanet;
 
-            return (State)blackBoard["SelectState"];
+            return (State)blackBoard["BurstState"];
         }
 
-        return this;
+		if (Input.GetAxisRaw("Feed") > 0 && ((PlayerController)blackBoard["Controller"]).hitPlanet.Faction == PlayerController.faction)
+		{
+			((PlayerController)blackBoard["Controller"]).AttackPlanet = ((PlayerController)blackBoard["Controller"]).hitPlanet;
+
+			return (State)blackBoard["FeedState"];
+		}
+
+		return this;
     }
 }

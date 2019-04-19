@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StatePlayerSelect : State
+public class StatePlayerFeed : State
 {
 
-    [SerializeField] Texture2D unkownCursor = null,
-        neutralMissileCursor = null,
-        friendParatrooperCursor = null,
-        hostileMissileCursor = null;
+    [SerializeField] Texture2D unkownSupplyCursor = null,
+        neutralMissileSupplyCursor = null,
+        friendParatrooperSupplyCursor = null,
+        hostileSupplyCursor = null;
 
 
 
     void Start()
     {
-        blackBoard["SelectState"] = this;
+        blackBoard["FeedState"] = this;
     }
 
 
@@ -25,19 +25,19 @@ public class StatePlayerSelect : State
 
         if (hitPlanet == null || hitPlanet == ((PlayerController)blackBoard["Controller"]).AttackPlanet)
         {
-            Cursor.SetCursor(unkownCursor, Vector2.one * PlayerController.cursorHotspotSize, CursorMode.ForceSoftware);
+            Cursor.SetCursor(unkownSupplyCursor, Vector2.one * PlayerController.cursorHotspotSize, CursorMode.ForceSoftware);
         }
         else if (hitPlanet.Faction == 0)
         {
-            Cursor.SetCursor(neutralMissileCursor, Vector2.one * PlayerController.cursorHotspotSize, CursorMode.ForceSoftware);
+            Cursor.SetCursor(neutralMissileSupplyCursor, Vector2.one * PlayerController.cursorHotspotSize, CursorMode.ForceSoftware);
         }
         else if (hitPlanet.Faction == PlayerController.faction)
         {
-            Cursor.SetCursor(friendParatrooperCursor, Vector2.one * PlayerController.cursorHotspotSize, CursorMode.ForceSoftware);
+            Cursor.SetCursor(friendParatrooperSupplyCursor, Vector2.one * PlayerController.cursorHotspotSize, CursorMode.ForceSoftware);
         }
         else
         {
-            Cursor.SetCursor(hostileMissileCursor, Vector2.one * PlayerController.cursorHotspotSize, CursorMode.ForceSoftware);
+            Cursor.SetCursor(hostileSupplyCursor, Vector2.one * PlayerController.cursorHotspotSize, CursorMode.ForceSoftware);
         }
 
 
@@ -55,7 +55,7 @@ public class StatePlayerSelect : State
 
     public override void StartState()
     {
-    
+
     }
 
 
@@ -75,16 +75,15 @@ public class StatePlayerSelect : State
             return (State)blackBoard["IdleState"];
         }
 
-        if (Input.GetAxisRaw("Select") > 0 && Input.GetAxisRaw("Feed") > 0)
-        {
-            return (State)blackBoard["SupplyState"];
-        }
-
-        if (Input.GetAxisRaw("Select") == 0)
+        if (Input.GetAxisRaw("Feed") == 0)
         {
             if (((PlayerController)blackBoard["Controller"]).TargetPlanet != null)
             {
-                ((PlayerController)blackBoard["Controller"]).AttackSelectedPlanet(true);
+                ((PlayerController)blackBoard["Controller"]).AttackSelectedPlanet(false);
+            }
+            else
+            {
+                ((PlayerController)blackBoard["Controller"]).AttackPlanet.SetFeed(null);
             }
 
             ((PlayerController)blackBoard["Controller"]).ClearSelectedPlanets();

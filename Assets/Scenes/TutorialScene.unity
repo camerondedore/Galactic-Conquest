@@ -802,8 +802,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: You can feed your resources into other planets by holding SPACE BAR when
-    taking or attacking.
+  m_text: You can feed your resources into other planets by using RIGHT MOUSE BUTTON
+    when taking or attacking.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dfd53dbb7af450d46bfe238a5f7ade8e, type: 2}
   m_sharedMaterial: {fileID: 21919489957129644, guid: dfd53dbb7af450d46bfe238a5f7ade8e,
@@ -873,10 +873,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 151699184}
-    characterCount: 93
+    characterCount: 100
     spriteCount: 0
-    spaceCount: 15
-    wordCount: 16
+    spaceCount: 16
+    wordCount: 17
     linkCount: 0
     lineCount: 3
     pageCount: 1
@@ -2459,11 +2459,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4540682468356433355, guid: fae28f7fcc3c0da498d4fb33a4781061,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ac51d63e5c0e4064e9dddc511eefa8c2, type: 2}
     - target: {fileID: 4540682468356433353, guid: fae28f7fcc3c0da498d4fb33a4781061,
         type: 3}
       propertyPath: faction
@@ -2494,6 +2489,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4540682468356433355, guid: fae28f7fcc3c0da498d4fb33a4781061,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ac51d63e5c0e4064e9dddc511eefa8c2, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fae28f7fcc3c0da498d4fb33a4781061, type: 3}
 --- !u!1 &758255992
@@ -2959,11 +2959,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4540682468356433355, guid: fae28f7fcc3c0da498d4fb33a4781061,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ac51d63e5c0e4064e9dddc511eefa8c2, type: 2}
     - target: {fileID: 4540682468356433353, guid: fae28f7fcc3c0da498d4fb33a4781061,
         type: 3}
       propertyPath: growthRate
@@ -2994,6 +2989,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4540682468356433355, guid: fae28f7fcc3c0da498d4fb33a4781061,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ac51d63e5c0e4064e9dddc511eefa8c2, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fae28f7fcc3c0da498d4fb33a4781061, type: 3}
 --- !u!1 &804069048
@@ -4623,11 +4623,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4540682468356433355, guid: fae28f7fcc3c0da498d4fb33a4781061,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ac51d63e5c0e4064e9dddc511eefa8c2, type: 2}
     - target: {fileID: 4540682468356433353, guid: fae28f7fcc3c0da498d4fb33a4781061,
         type: 3}
       propertyPath: faction
@@ -4648,6 +4643,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4540682468356433355, guid: fae28f7fcc3c0da498d4fb33a4781061,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ac51d63e5c0e4064e9dddc511eefa8c2, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fae28f7fcc3c0da498d4fb33a4781061, type: 3}
 --- !u!1 &1773260083
@@ -5002,11 +5002,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4540682468356433355, guid: fae28f7fcc3c0da498d4fb33a4781061,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ac51d63e5c0e4064e9dddc511eefa8c2, type: 2}
     - target: {fileID: 4540682468356433353, guid: fae28f7fcc3c0da498d4fb33a4781061,
         type: 3}
       propertyPath: faction
@@ -5037,6 +5032,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4540682468356433355, guid: fae28f7fcc3c0da498d4fb33a4781061,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ac51d63e5c0e4064e9dddc511eefa8c2, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fae28f7fcc3c0da498d4fb33a4781061, type: 3}
 --- !u!1 &1949991761
