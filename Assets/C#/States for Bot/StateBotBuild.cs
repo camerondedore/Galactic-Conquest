@@ -50,11 +50,13 @@ public class StateBotBuild : State
 
         var faction = ((BotController)blackBoard["Controller"]).faction;
 
-        var raidChance = Mathf.Clamp(Planet.GetCountOfMyPlanets(faction) / ((float) Planet.Planets.Count), 0.15f, 1);
+		var neutralPlanetsRatio = Planet.GetCountOfMyPlanets(0) / (float) (Planet.Planets.Count - MapGenerator.FactionCount);
+
+        var colonizeChance = Mathf.Clamp(neutralPlanetsRatio, 0, 1);
 
         if (Time.time > endTime)
         {
-            return roll > raidChance ? (State)blackBoard["ColonizeState"] : (State)blackBoard["RaidState"];
+            return roll < colonizeChance ? (State)blackBoard["ColonizeState"] : (State)blackBoard["RaidState"];
         }
 
         return this;
