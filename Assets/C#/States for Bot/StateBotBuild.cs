@@ -6,15 +6,17 @@ using UnityEngine;
 public class StateBotBuild : State
 {
 
-    Vector2 timeRange = new Vector2(1f, 6f);
-    float endTime;
+    Vector2 timeRange = new Vector2(.8f, 1.2f);
+    float endTime,
+		variation = 1;
 
 
 
     void Start()
     {
         blackBoard["BuildState"] = this;
-    }
+		variation = Random.Range(timeRange.x, timeRange.y);
+	}
 
 
 
@@ -32,7 +34,7 @@ public class StateBotBuild : State
 
     public override void StartState()
     {
-        endTime = Time.time + Random.Range(timeRange.x, timeRange.y);
+        endTime = Time.time + variation * PlayerController.actionTime;
     }
 
 

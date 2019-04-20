@@ -5,8 +5,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour, IInitializeIntoBlackBoard
 {
     #region Fields
-    public static int cursorHotspotSize = 64;
-    public static int faction = 1;
+    public static int cursorHotspotSize = 64,
+		faction = 1;
+	public static float actionTime = 1;
 
     public Planet attackPlanet,
         targetPlanet,
@@ -18,6 +19,10 @@ public class PlayerController : MonoBehaviour, IInitializeIntoBlackBoard
 
     Camera mainCam = null;
     RaycastHit mouseHit;
+	float lastActionTime = 0,
+		actionAdaptSpeed = .1f,
+		minActionTime = 1f,
+		maxActionTime = 6f;
     #endregion
 
     #region Properties
@@ -102,6 +107,10 @@ public class PlayerController : MonoBehaviour, IInitializeIntoBlackBoard
 
     public void AttackSelectedPlanet(bool burst)
     {
+		actionTime = Mathf.Lerp(actionTime, Time.time - lastActionTime, actionAdaptSpeed);
+		actionTime = Mathf.Clamp(actionTime, minActionTime, maxActionTime);
+		lastActionTime = Time.time;
+
         if (burst)
         {
             AttackPlanet.Attack(TargetPlanet);
