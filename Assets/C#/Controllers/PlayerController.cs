@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour, IInitializeIntoBlackBoard
     #region Fields
     public static int cursorHotspotSize = 64,
 		faction = 1;
-	public static float actionTime = 1;
+	public static float actionTime = 3;
 
     public Planet attackPlanet,
         targetPlanet,

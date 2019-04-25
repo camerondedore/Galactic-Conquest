@@ -253,6 +253,7 @@ MonoBehaviour:
   planetMaterials:
   - {fileID: 2100000, guid: 4bce9bf1187e51546ae18c3238be2c6d, type: 2}
   - {fileID: 2100000, guid: ac51d63e5c0e4064e9dddc511eefa8c2, type: 2}
+  - {fileID: 2100000, guid: 778e695ede3e0db4782b295f5cfaf9db, type: 2}
   feedTargetPlanet: {fileID: 0}
 --- !u!1 &4540682468471669043
 GameObject:
